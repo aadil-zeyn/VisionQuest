@@ -115,7 +115,7 @@
 ```
 
 #### 3.2 View Profile from Leaderboard
-**Endpoint:** `GET /api/profile/{studentId}`
+**Endpoint:** `GET /api/leaderboard/profile/{studentId}`
 
 **Description:** Retrieve the profile details of a student from the leaderboard.
 
@@ -175,7 +175,7 @@
 ```
 
 #### 4.2 Store Solution
-**Endpoint:** `POST /api/questions/{questionId}/solution`
+**Endpoint:** `POST /api/questions/solution/{questionId}`
 
 **Description:** Submit a solution to a specific question. The solution will be validated and displayed upon approval.
 
