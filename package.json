@@ -1,0 +1,20 @@
+{
+  "name": "visionquest",
+  "version": "1.0.0",
+  "description": "**Endpoint:** `GET /api/challenges`",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Test: TEST!!!\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Aadil Anthrolil Abu",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
