@@ -4,7 +4,8 @@
   "description": "**Endpoint:** `GET /api/challenges`",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Test: TEST!!!\" && exit 1"
+    "test": "echo \"Test: TEST!!!\" && exit 1",
+    "serve": "nodemon app.js"
   },
   "keywords": [],
   "author": "Aadil Anthrolil Abu",
