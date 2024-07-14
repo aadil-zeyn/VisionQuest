@@ -5,6 +5,6 @@ const leaderboardSchema = new mongoose.Schema({
   name: String,
   score: Number,
   rank: Number,
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('Leaderboard', leaderboardSchema);

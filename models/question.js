@@ -5,6 +5,6 @@ const questionSchema = new mongoose.Schema({
   body: String,
   author: String,
   created_at: { type: Date, default: Date.now },
-});
+}, { versionKey: false });
 
-module.exports = mongoose.model('Question', questionSchema);
+module.exports = mongoose.model('Questions', questionSchema);
