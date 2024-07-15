@@ -1,6 +1,24 @@
-exports.getLeaderboard = (req, res) => {
-    // Logic to get leaderboard
-    res.json({ message: 'Get leaderboard' });
+const Leaderboard = require("../models/leaderboard")
+
+exports.getLeaderboard = async (req, res) => {
+    const { topic } = req.query
+    console.log(topic)
+    try{
+
+      let query = {};
+    
+    if (topic) {
+      query = { topic: { $regex: new RegExp(topic, 'i') } };
+    }
+
+    const challenges = await Leaderboard.find(query);
+
+    res.json(challenges);
+
+    }
+    catch(error){
+      res.status(500).json({ message: 'Error retrieving Leaderboard', error });
+    }
   };
   
   exports.viewProfile = (req, res) => {
