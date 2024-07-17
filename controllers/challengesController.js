@@ -1,4 +1,4 @@
-const Challenge = require('../models/challenge');
+const { Challenge } = require('../models');
 
 exports.createChallenge = async (req, res) => {
   console.log("create challenge")
