@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   score: Number,
@@ -8,4 +8,4 @@ const studentSchema = new mongoose.Schema({
   achievements: [String],
 }, { versionKey: false });
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model('User', userSchema);
