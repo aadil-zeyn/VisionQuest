@@ -2,7 +2,7 @@ const Challenge = require('../models/challenge');
 
 exports.createChallenge = async (req, res) => {
   console.log("create challenge")
-  let { challenges } = req.body;
+  let challenges  = req.body;
 
   try {
     if (!Array.isArray(challenges)) {
@@ -26,7 +26,7 @@ exports.listChallenges = async (req, res) => {
 };
 
 exports.searchChallenges = async (req, res) => {
-  const { topic } = req.query;
+  const topic  = req.query;
   try {
     let query = {};
     
