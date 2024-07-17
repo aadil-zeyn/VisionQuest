@@ -13,7 +13,7 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+  .catch(err => console.log("Error connecting MongoDB",err));
 
 app.use('/api/challenges', challengesRouter);
 app.use('/api/challenges', evaluationRouter);
