@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const leaderboardSchema = new mongoose.Schema({
-  studentId: mongoose.Schema.Types.ObjectId,
+  userId: mongoose.Schema.Types.ObjectId,
   name: String,
   score: Number,
   rank: Number,
