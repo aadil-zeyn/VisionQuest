@@ -1,19 +1,26 @@
-require('dotenv').config();
+import dotenv from "dotenv"
 
-const express = require('express');
-const mongoose = require('mongoose');
+import express, { json } from 'express';
+import { connect } from 'mongoose';
 const app = express();
-const challengesRouter = require('./routes/challenges');
-const evaluationRouter = require('./routes/evaluation');
-const leaderboardRouter = require('./routes/leaderboard');
-const questionsRouter = require('./routes/questions');
-const healthCheck = require('./routes/health')
+import challengesRouter from './routes/challenges.js';
+import evaluationRouter from './routes/evaluation.js';
+import leaderboardRouter from './routes/leaderboard.js';
+import questionsRouter from './routes/questions.js';
+import healthCheck from './routes/health.js';
 
-app.use(express.json());
+app.use(json());
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log("Error connecting MongoDB",err));
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+
+connect(process.env.MONGODB_URI).then(() => {
+    console.log('MongoDB connected')
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`)
+    })
+  }).catch(err => console.log("Error connecting MongoDB",err));
 
 app.use('/api/challenges', challengesRouter);
 app.use('/api/challenges', evaluationRouter);
@@ -22,7 +29,4 @@ app.use('/api/questions', questionsRouter);
 app.use('',healthCheck);
 
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+

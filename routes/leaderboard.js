@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const leaderboardController = require('../controllers/leaderboardController');
+import { Router } from 'express';
+const router = Router();
+import { getLeaderboard, viewProfile } from '../controllers/leaderboardController.js';
 
-router.get('/', leaderboardController.getLeaderboard);
-router.get('/profile/:studentId', leaderboardController.viewProfile);
+router.get('/', getLeaderboard);
+router.get('/profile/:studentId', viewProfile);
 
-module.exports = router;
+export default router;

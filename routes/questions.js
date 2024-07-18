@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const questionsController = require('../controllers/questionsController');
+import { Router } from 'express';
+const router = Router();
+import { listRecentQuestions, storeSolution } from '../controllers/questionsController.js';
 
-router.get('/', questionsController.listRecentQuestions);
-router.post('/solution/:questionId', questionsController.storeSolution);
+router.get('/', listRecentQuestions);
+router.post('/solution/:questionId', storeSolution);
 
-module.exports = router;
+export default router;
