@@ -1,6 +1,6 @@
-const Challenge = require('../models/challenge');
+import Challenge from '../models/challenge.js';
 
-exports.evaluateSolution = async (req, res) => {
+export async function evaluateSolution(req, res) {
   const { challengeId } = req.params;
   const { solution } = req.body;
   try {
@@ -22,4 +22,4 @@ exports.evaluateSolution = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error evaluating solution', error });
   }
-};
+}

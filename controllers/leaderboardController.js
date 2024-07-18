@@ -1,6 +1,6 @@
-const Leaderboard = require("../models/leaderboard")
+import Leaderboard from "../models/leaderboard.js";
 
-exports.getLeaderboard = async (req, res) => {
+export async function getLeaderboard(req, res) {
     const { topic } = req.query
     console.log(topic)
     try{
@@ -19,10 +19,10 @@ exports.getLeaderboard = async (req, res) => {
     catch(error){
       res.status(500).json({ message: 'Error retrieving Leaderboard', error });
     }
-  };
+  }
   
-  exports.viewProfile = (req, res) => {
+  export function   viewProfile(req, res) {
     // Logic to view profile
     res.json({ message: 'View profile' });
-  };
+  }
   

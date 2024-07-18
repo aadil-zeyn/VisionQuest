@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const leaderboardSchema = new mongoose.Schema({
-  userId: mongoose.Schema.Types.ObjectId,
+const leaderboardSchema = new Schema({
+  userId: Schema.Types.ObjectId,
   name: String,
   score: Number,
   rank: Number,
   topic: String
 }, { versionKey: false });
 
-module.exports = mongoose.model('Leaderboard', leaderboardSchema);
+export default model('Leaderboard', leaderboardSchema);

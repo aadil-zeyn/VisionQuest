@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const challengesController = require('../controllers/challengesController');
+import { Router } from 'express';
+import { createChallenge, listChallenges, searchChallenges } from '../controllers/challengesController.js';
+
+const router = Router();
 
 // POST Temp API for creating challenges
-router.post('/', challengesController.createChallenge);
+router.post('/', createChallenge);
 
-router.get('/', challengesController.listChallenges);
-router.get('/search', challengesController.searchChallenges);
+router.get('/', listChallenges);
+router.get('/search', searchChallenges);
 
-module.exports = router;
+export default router;

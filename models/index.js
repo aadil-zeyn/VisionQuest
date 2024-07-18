@@ -1,5 +1,5 @@
 
-const Challenge = require('./challenge');
-const User = require('./user');
+// import Challenge from './challenge.js';
+// import User from './user';
 
-module.exports = { User, Challenge };
+// export default { User, Challenge };

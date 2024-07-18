@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "**Endpoint:** `GET /api/challenges`",
   "main": "app.js",
+  "type":"module",
   "scripts": {
     "test": "echo \"Test: TEST!!!\" && exit 1",
     "serve": "nodemon app.js"

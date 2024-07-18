@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const evaluationController = require('../controllers/evaluationController');
+import { Router } from 'express';
+const router = Router();
+import { evaluateSolution } from '../controllers/evaluationController.js';
 
-router.post('/:challengeId/evaluate', evaluationController.evaluateSolution);
+router.post('/:challengeId/evaluate', evaluateSolution);
 
-module.exports = router;
+export default router;

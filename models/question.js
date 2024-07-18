@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const questionSchema = new mongoose.Schema({
+const questionSchema = new Schema({
   title: String,
   body: String,
-  author: mongoose.Schema.Types.ObjectId,
+  author: Schema.Types.ObjectId,
   created_at: { type: Date, default: Date.now },
 }, { versionKey: false });
 
-module.exports = mongoose.model('Questions', questionSchema);
+export default model('Questions', questionSchema);

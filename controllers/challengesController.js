@@ -1,6 +1,6 @@
-const { Challenge } = require('../models');
+import Challenge from '../models/challenge.js';
 
-exports.createChallenge = async (req, res) => {
+export async function createChallenge(req, res) {
   console.log("create challenge")
   let challenges  = req.body;
 
@@ -14,18 +14,18 @@ exports.createChallenge = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error creating challenges', error });
   }
-};
+}
 
-exports.listChallenges = async (req, res) => {
+export async function listChallenges(req, res) {
   try {
     const challenges = await Challenge.find();
     res.json(challenges);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving challenges', error });
   }
-};
+}
 
-exports.searchChallenges = async (req, res) => {
+export async function searchChallenges(req, res) {
   const topic  = req.query;
   try {
     let query = {};
@@ -40,4 +40,4 @@ exports.searchChallenges = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error searching challenges', error });
   }
-};
+}
