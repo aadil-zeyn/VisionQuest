@@ -1,10 +1,15 @@
 import { Schema, model } from 'mongoose';
 
+const languageSchema = new Schema({
+  name: String,
+  score: Number
+})
+
 const userSchema = new Schema({
   name: String,
   email: String,
-  score: Number,
-  topics: [String],
+  uid: String,
+  languages: [languageSchema],
   achievements: [String],
 }, { versionKey: false });
 
