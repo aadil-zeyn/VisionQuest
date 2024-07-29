@@ -1,25 +1,94 @@
 import Challenge from '../models/challenge.js';
+import axios from 'axios';
+
+const languageMap = {
+  "c": { language: "c", version: "10.2.0" },
+  "cpp": { language: "c++", version: "10.2.0" },
+  "python": { language: "python", version: "3.10.0" },
+  "java": { language: "java", version: "15.0.2" }
+};
+
+const compileCode = async (code, language, input) => {
+  if (!languageMap[language]) {
+    throw new Error("Unsupported language");
+  }
+
+  const data = {
+    language: languageMap[language].language,
+    version: languageMap[language].version,
+    files: [{ name: "main", content: code }],
+    stdin: input
+  };
+
+  const config = {
+    method: 'post',
+    url: 'https://emkc.org/api/v2/piston/execute',
+    headers: { 'Content-Type': 'application/json' },
+    data: data
+  };
+
+  const response = await axios(config);
+  return response.data.run;
+};
+
+const runTestCases = async (code, language, testCases) => {
+  let results = [];
+  let passedCount = 0;
+
+  for (const testCase of testCases) {
+    const result = await compileCode(code, language, testCase.input);
+    const passed = result.output.trim() === testCase.expectedOutput.trim();
+    if (passed) {
+      passedCount++;
+    }
+    results.push({
+      input: testCase.input,
+      expectedOutput: testCase.expectedOutput,
+      actualOutput: result.output.trim(),
+      passed
+    });
+  }
+
+  return {
+    results,
+    summary: `${passedCount} out of ${testCases.length} passed`
+  };
+};
 
 export async function evaluateSolution(req, res) {
-  const { challengeId } = req.params;
-  const { solution } = req.body;
+  const { challengeId, action } = req.query; // Assuming 'action' is passed as a URL parameter
+  const { code, language, input } = req.body;
+
   try {
-    // Fetch the challenge by ID
+    console.log(challengeId)
     const challenge = await Challenge.findById(challengeId);
     if (!challenge) {
       return res.status(404).json({ message: 'Challenge not found' });
     }
 
-    // solution to be evaluated for the time returning False
-    let isSolutionCorrect = false;
-    
-
-    res.json({ 
-      message: 'Solution evaluated', 
-      challengeId, 
-      isSolutionCorrect 
-    });
+    if (action === 'compile') {
+      const result = await compileCode(code, language, input);
+      return res.json({ message: 'Code compiled', result });
+    } else if (action === 'visible') {
+      const { results, summary } = await runTestCases(code, language, challenge.visibleTestCases);
+      return res.json({ message: 'Visible test cases run', results, summary });
+    } else if (action === 'hidden') {
+      const { results, summary } = await runTestCases(code, language, challenge.hiddenTestCases);
+      const isSolutionCorrect = results.every(result => result.passed);
+      return res.json({
+        message: 'Hidden test cases run',
+        isSolutionCorrect,
+        hiddenResults: results.map(result => ({
+          input: result.input,
+          actualOutput: result.actualOutput
+        })),  
+        summary
+      });
+    } else {
+      return res.status(400).json({ message: 'Invalid action' });
+    }
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Error evaluating solution', error });
   }
 }
