@@ -1,6 +1,6 @@
 import Challenge from '../models/challenge.js';
-import { compileCode } from '../utils/compiler.js';
-import runTestCases from '../utils/runTestCases.js';
+import { compileCode } from '../evaluation_utils/compiler.js';
+import runTestCases from '../evaluation_utils/runTestCases.js';
 
 export async function evaluateSolution(req, res) {
   const { challengeId, action } = req.query; 
