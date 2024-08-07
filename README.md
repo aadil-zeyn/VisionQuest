@@ -1,194 +1,71 @@
-# API Documentation
+# Vision Quest Project Documentation
 
-## Endpoints
+## Introduction
 
-### 1. Challenges
+This project is an Express-based API server that provides endpoints for managing challenges, evaluations, leaderboards, questions, and users. 
 
-#### 1.1 List Challenges
-**Endpoint:** `GET /api/challenges`
+## Getting Started
 
-**Description:** Retrieve a paginated list of challenges.
+### Prerequisites
 
-**Request Parameters:**
-- `page` (integer, optional): The page number to retrieve.
-- `limit` (integer, optional): The number of challenges per page.
+- Node.js
+- npm (Node Package Manager)
 
-**Response:**
-```json
-{
-  "challenges": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "topic": "string"
-    }
-  ],
-  "pagination": {
-    "currentPage": "integer",
-    "totalPages": "integer",
-    "totalChallenges": "integer",
-    "hasMore": "boolean"
-  }
-}
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/aadil-zeyn/VisionQuest.git
+    ```
+
+2. Navigate to the project directory:
+    ```bash
+    cd VisionQuest
+    ```
+
+3. Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+### Running the Server
+
+To start the server, run:
+```bash
+npm run serve
 ```
 
-#### 1.2 Search Challenges
-**Endpoint:** `GET /api/challenges/search`
+The server will start on `http://localhost:8080`.
 
-**Description:** Search for challenges based on a specific topic and return paginated results.
+## API Endpoints
 
-**Request Parameters:**
-- `topic` (string, required): The topic to search for.
-- `page` (integer, optional): The page number to retrieve.
-- `limit` (integer, optional): The number of challenges per page.
+For detailed documentation of the API endpoints, refer to the `api-docs` folder.
 
-**Response:**
-```json
-{
-  "challenges": [
-    {
-      "id": "string",
-      "title": "string",
-      "description": "string",
-      "topic": "string"
-    }
-  ],
-  "pagination": {
-    "currentPage": "integer",
-    "totalPages": "integer",
-    "totalChallenges": "integer",
-    "hasMore": "boolean"
-  }
-}
-```
+### Routes
 
-### 2. Challenge Evaluation
+- **Challenges**
+    - **Create Challenge:** `POST /api/challenges`
+    - **List Challenges:** `GET /api/challenges`
+    - **Search Challenges:** `GET /api/challenges/search`
 
-#### 2.1 Evaluate Solution
-**Endpoint:** `POST /api/challenges/{challengeId}/evaluate`
+- **Evaluation**
+    - **Evaluate Solution:** `POST /api/challenges/evaluate`
 
-**Description:** Evaluate a submitted solution for a specific challenge.
+- **Leaderboard**
+    - **Get Leaderboard:** `GET /api/leaderboard`
 
-**Request Parameters:**
-- `challengeId` (string, required): The ID of the challenge.
-- `solution` (string, required): The submitted solution.
+- **Questions**
+    - **List Recent Questions:** `GET /api/questions`
+    - **Store Solution:** `POST /api/questions/solution/:questionId`
 
-**Response:**
-```json
-{
-  "challengeId": "string",
-  "score": "integer",
-  "feedback": "string"
-}
-```
+- **User**
+    - **Create User:** `POST /api/user/create`
+    - **View Profile:** `GET /api/user/profile/:userId`
 
-### 3. Leaderboard
+- **Health Check**
+    - **Health Check:** `GET /`
 
-#### 3.1 Get Leaderboard
-**Endpoint:** `GET /api/leaderboard`
+## Usage
 
-**Description:** Retrieve the leaderboard for different topics.
+Use tools like Postman or curl to interact with the API endpoints. Ensure you have the correct URL and HTTP method for each endpoint.
 
-**Request Parameters:**
-- `topic` (string, optional): The topic to filter the leaderboard.
-- `limit` (integer, optional): The number of leaderboard entries per page.
-
-**Response:**
-```json
-{
-  "topic": "string",
-  "leaderboard": [
-    {
-      "studentId": "string",
-      "name": "string",
-      "score": "integer",
-      "rank": "integer"
-    }
-  ],
-  "pagination": {
-    "currentPage": "integer",
-    "totalPages": "integer",
-    "hasMore": "boolean"
-  }
-}
-```
-
-#### 3.2 View Profile from Leaderboard
-**Endpoint:** `GET /api/leaderboard/profile/{studentId}`
-
-**Description:** Retrieve the profile details of a student from the leaderboard.
-
-**Request Parameters:**
-- `studentId` (string, required): The ID of the student.
-
-**Response:**
-```json
-{
-  "studentId": "string",
-  "name": "string",
-  "learningCurve": [
-    {
-      "date": "string",
-      "activity": "string",
-      "details": "string"
-    }
-  ],
-  "details": {
-    "email": "string",
-    "topics": ["string"],
-    "achievements": ["string"]
-  }
-}
-```
-
-### 4. Q&A Section
-
-#### 4.1 List Recent Questions
-**Endpoint:** `GET /api/questions`
-
-**Description:** Retrieve a list of recent questions with optional filtering.
-
-**Request Parameters:**
-- `filter` (string, optional): A filter to apply to the questions (e.g., topic, most answered).
-- `page` (integer, optional): The page number to retrieve.
-- `limit` (integer, optional): The number of questions per page.
-
-**Response:**
-```json
-{
-  "questions": [
-    {
-      "id": "string",
-      "title": "string",
-      "body": "string",
-      "author": "string",
-      "created_at": "string"
-    }
-  ],
-  "pagination": {
-    "currentPage": "integer",
-    "totalPages": "integer",
-    "hasMore": "boolean"
-  }
-}
-```
-
-#### 4.2 Store Solution
-**Endpoint:** `POST /api/questions/solution/{questionId}`
-
-**Description:** Submit a solution to a specific question. The solution will be validated and displayed upon approval.
-
-**Request Parameters:**
-- `questionId` (string, required): The ID of the question.
-- `solution` (string, required): The submitted solution.
-
-**Response:**
-```json
-{
-  "questionId": "string",
-  "solutionId": "string",
-  "status": "string",
-  "message": "string"
-}
-```
