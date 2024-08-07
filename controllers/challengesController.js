@@ -1,7 +1,6 @@
 import Challenge from '../models/challenge.js';
 
 export async function createChallenge(req, res) {
-  console.log("create challenge")
   let challenges  = req.body;
 
   try {

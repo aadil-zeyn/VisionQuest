@@ -2,12 +2,15 @@ import dotenv from "dotenv"
 
 import express, { json } from 'express';
 import { connect } from 'mongoose';
-const app = express();
 import challengesRouter from './routes/challenges.js';
 import evaluationRouter from './routes/evaluation.js';
 import leaderboardRouter from './routes/leaderboard.js';
 import questionsRouter from './routes/questions.js';
+import userRouter from './routes/user.js';
 import healthCheck from './routes/health.js';
+
+
+const app = express();
 
 app.use(json());
 
@@ -26,6 +29,7 @@ app.use('/api/challenges', challengesRouter);
 app.use('/api/challenges', evaluationRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/questions', questionsRouter);
+app.use('/api/user',userRouter)
 app.use('',healthCheck);
 
 
