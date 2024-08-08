@@ -1,4 +1,5 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
 
 const languageMap = {
     "c": { language: "c", version: "10.2.0" },
@@ -7,6 +8,10 @@ const languageMap = {
     "java": { language: "java", version: "15.0.2" }
   };
   
+dotenv.config();
+
+const COMPILER_API = process.env.COMPILER_API;
+
 export async function compileCode(code, language, input){
     if (!languageMap[language]) {
       throw new Error("Unsupported language");
@@ -21,7 +26,7 @@ export async function compileCode(code, language, input){
   
     const config = {
       method: 'post',
-      url: 'https://emkc.org/api/v2/piston/execute',
+      url: COMPILER_API,
       headers: { 'Content-Type': 'application/json' },
       data: data
     };
