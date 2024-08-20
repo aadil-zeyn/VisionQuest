@@ -9,15 +9,18 @@ import questionsRouter from './routes/questions.js';
 import userRouter from './routes/user.js';
 import healthCheck from './routes/health.js';
 
+import cors from 'cors';
+
+
 
 const app = express();
-
+app.use(cors());
 app.use(json());
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
-
+ 
 connect(process.env.MONGODB_URI).then(() => {
     console.log('MongoDB connected')
     app.listen(PORT, () => {
