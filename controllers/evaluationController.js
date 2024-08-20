@@ -1,4 +1,5 @@
 import Challenge from '../models/challenge.js';
+import challengeDetails from '../models/challengeDetails.js';
 import { compileCode } from '../utils/challengeEvaluation/compiler.js';
 import runTestCases from '../utils/challengeEvaluation/runTestCases.js';
 
@@ -7,10 +8,25 @@ export async function evaluateSolution(req, res) {
   const { code, language, input } = req.body;
 
   try {
-    const challenge = await Challenge.findById(challengeId);
-    if (!challenge) {
+    const response = await Challenge.findById(challengeId);
+    if (!response) {
       return res.status(404).json({ message: 'Challenge not found' });
     }
+    const challengeDetails_ = await challengeDetails.findOne({ challengeId: challengeId });
+
+    if (!challengeDetails_) {
+      return res.status(404).json({ message: 'Challenge details not found' });
+    }
+
+    const challenge = {
+      challengeId: response._id,
+      title: response.title,
+      description: response.description,
+      boilerplateCode: challengeDetails_.boilerplateCode,
+      visibleTestCases: challengeDetails_.visibleTestCases,
+      hiddenTestCases: challengeDetails_.hiddenTestCases
+    };
+
 
     if (action === 'compile') {
       const result = await compileCode(code, language, input);
